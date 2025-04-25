@@ -88,15 +88,6 @@ const ImageDisplay = memo(({
     const handleError = () => {
         setStatus('error');
     };
-
-    // 文件大小格式化
-    const formatFileSize = (bytes) => {
-        if (!bytes || bytes === 0) return '0 KB';
-        const kb = bytes / 1024;
-        return kb < 1024
-            ? `${kb.toFixed(1)} KB`
-            : `${(kb / 1024).toFixed(1)} MB`;
-    };
     // 日期格式化
     const formatDate = (dateString) => {
         if (!dateString) return '';
