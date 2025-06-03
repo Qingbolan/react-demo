@@ -1,0 +1,613 @@
+.prose.max-w-none.p-6.text-lg.leading-relaxed.markdown-cell {
+    padding: 0;
+}
+
+* {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.4;
+    font-size: 12px;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+/* Override general styles for editor content */
+.editor-inner * {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.editor-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    border: 1px solid rgba(65, 184, 131, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.toolbar {
+    background: linear-gradient(to right, #41B883, #3490DC, #6574CD);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(65, 184, 131, 0.2);
+}
+
+.toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toolbar-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.toolbar-hint {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.editor-inner {
+    position: relative;
+    background: white;
+}
+
+/* Direct override for the editor-inner to ensure styles are applied */
+.editor-inner .markdown-cell {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+}
+
+.editor-input {
+    min-height: 400px;
+    resize: none;
+    font-size: 1rem;
+    position: relative;
+    tab-size: 1;
+    outline: 0;
+    padding: 1.5rem;
+    color: #202124;
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-user-select: text;
+    user-select: text;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Legacy placeholder styles - kept for backward compatibility */
+.editor-placeholder:not(.editor-placeholder-container .editor-placeholder) {
+    color: #999;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-user-select: none;
+    user-select: none;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.markdown-cell {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #202124;
+    line-height: 1.4;
+}
+
+.markdown-cell #untitled-cell:hover {
+    color: #35495E !important;
+}
+
+/* Allow important styles to be applied to markdown elements */
+.markdown-cell * {
+    border: none !important;
+}
+
+/* 恢复一级标题和三级标题的渐变效果 - 使用替代方案 */
+.editor-input h1,
+.editor-heading-h1,
+.markdown-cell h1 {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    position: relative !important;
+    background: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important; 
+    text-shadow: 0px 0px 1px rgba(65, 184, 131, 0.2) !important; /* 添加轻微阴影增加可见性 */
+    line-height: 1.6 !important;
+    margin: 1rem 0 !important;
+    display: block !important;
+}
+
+/* Fix cursor in h1 with a pseudo-element for cursor visibility */
+.editor-heading-h1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.editor-input h2,
+.editor-heading-h2,
+.markdown-cell h2 {
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    border-radius: 5px !important;
+    padding: 0.2rem 0.5rem !important;
+    margin: 1.5rem 0 0.5rem 0 !important;
+    line-height: 1.5 !important;
+    display: block !important;
+}
+
+.editor-input h3,
+.editor-heading-h3,
+.markdown-cell h3 {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    background: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-shadow: 0px 0px 1px rgba(65, 184, 131, 0.2) !important; /* 添加轻微阴影增加可见性 */
+    margin: 1rem 0 0.5rem 0 !important;
+    line-height: 1.2 !important;
+    padding-bottom: 0 !important;
+    display: block !important;
+}
+
+.editor-input h4,
+.editor-heading-h4,
+.markdown-cell h4 {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    margin: 1rem 0 0.5rem 0 !important;
+    line-height: 1.2rem !important;
+    padding-left: 0.5rem !important;
+    border-left: 3px solid #3490DC !important;
+    padding-bottom: 0 !important;
+    display: block !important;
+}
+
+.editor-input h5,
+.editor-heading-h5,
+.markdown-cell h5 {
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    color: #35495E !important;
+    margin: 0.8rem 0 0.5rem 0 !important;
+    line-height: 1.2 !important;
+    display: block !important;
+}
+
+.editor-input h6,
+.editor-heading-h6,
+.markdown-cell h6 {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    color: #35495E !important;
+    margin: 0.8rem 0 0.5rem 0 !important;
+    line-height: 1.2 !important;
+    font-style: italic !important;
+    display: block !important;
+}
+
+.editor-input p,
+.editor-paragraph,
+.markdown-cell p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin: 0.5rem 0 !important;
+    color: black !important;
+}
+
+.editor-input a,
+.editor-link,
+.markdown-cell a {
+    color: #41B883 !important;
+    text-decoration: none !important;
+    border-bottom: 1.5px solid #41B883 !important;
+    transition: all 0.2s !important;
+    font-weight: 500 !important;
+}
+
+.editor-input a:hover,
+.editor-link:hover,
+.markdown-cell a:hover {
+    color: #3490DC !important;
+    border-bottom-color: #3490DC !important;
+}
+
+.editor-input pre,
+.editor-code,
+.markdown-cell pre {
+    background-color: rgba(65, 184, 131, 0.05) !important;
+    padding: 1.25rem !important;
+    border-radius: 0.5rem !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-size: 0.875rem !important;
+    overflow-x: auto !important;
+    line-height: 1.6 !important;
+    border: 1px solid rgba(65, 184, 131, 0.1) !important;
+    margin: 1rem 0 !important;
+}
+
+.editor-input code,
+.editor-text-code,
+.markdown-cell code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-size: 0.875rem !important;
+    background-color: rgba(65, 184, 131, 0.05) !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 0.375rem !important;
+    font-weight: 500 !important;
+    color: #41B883 !important;
+}
+
+.editor-input blockquote,
+.editor-quote,
+.markdown-cell blockquote {
+    border-left: 4px solid #41B883 !important;
+    background-color: rgba(65, 184, 131, 0.05) !important;
+    padding: 0.5rem 1rem !important;
+    margin: 1.5rem 0 !important;
+    color: #35495E !important;
+    font-style: italic !important;
+}
+
+.editor-input ul,
+.editor-input ol,
+.editor-list-ul,
+.editor-list-ol,
+.markdown-cell ul,
+.markdown-cell ol {
+    padding-left: 1.5rem !important;
+    margin: 1rem 0 !important;
+}
+
+.editor-input ul,
+.editor-list-ul,
+.markdown-cell ul {
+    list-style-type: disc !important;
+}
+
+.editor-input ol,
+.editor-list-ol,
+.markdown-cell ol {
+    list-style-type: decimal !important;
+}
+
+.editor-input li,
+.editor-listitem,
+.markdown-cell li {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.5 !important;
+    position: relative !important;
+}
+
+.editor-input strong,
+.editor-text-bold,
+.markdown-cell strong {
+    font-weight: 700 !important;
+    color: #41B883 !important;
+}
+
+.editor-input em,
+.editor-text-italic,
+.markdown-cell em {
+    font-style: italic !important;
+    color: #41B883 !important;
+}
+
+.cell-cursor {
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background-color: #41B883;
+    box-shadow: 0 0 8px rgba(65, 184, 131, 0.5);
+    animation: cursorBlink 1s ease-in-out infinite;
+    border-radius: 2px;
+}
+
+.cell-highlight {
+    transition: all 0.3s ease;
+}
+
+.cell-highlight:hover {
+    background-color: rgba(65, 184, 131, 0.05);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F9FAFB;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(65, 184, 131, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(65, 184, 131, 0.3);
+}
+
+@keyframes cursorBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .editor-container {
+        background: #1f2937;
+        border-color: rgba(65, 184, 131, 0.3);
+    }
+
+    .editor-input {
+        background: #1f2937;
+        color: #d1d5db;
+    }
+
+    .markdown-cell {
+        color: #d1d5db;
+    }
+
+    .editor-input h1,
+    .editor-heading-h1,
+    .markdown-cell h1 {
+        background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    }
+
+    .editor-input h2,
+    .editor-heading-h2,
+    .markdown-cell h2 {
+        background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+        color: #f3f4f6 !important;
+    }
+
+    .editor-input h3,
+    .editor-input h4,
+    .editor-heading-h3,
+    .editor-heading-h4,
+    .markdown-cell h3,
+    .markdown-cell h4 {
+        background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    }
+
+    .editor-input h5,
+    .editor-input h6,
+    .editor-heading-h5,
+    .editor-heading-h6,
+    .markdown-cell h5,
+    .markdown-cell h6 {
+        color: #3490DC !important;
+    }
+
+    .editor-input blockquote,
+    .editor-quote,
+    .markdown-cell blockquote {
+        color: #3490DC !important;
+        background-color: rgba(65, 184, 131, 0.1) !important;
+    }
+
+    .editor-input strong,
+    .editor-input em,
+    .editor-text-bold,
+    .editor-text-italic,
+    .markdown-cell strong,
+    .markdown-cell em {
+        color: #3490DC !important;
+    }
+
+    .editor-input pre,
+    .editor-code,
+    .markdown-cell pre {
+        background-color: rgba(65, 184, 131, 0.1) !important;
+        border-color: rgba(65, 184, 131, 0.2) !important;
+    }
+
+    .editor-input code,
+    .editor-text-code,
+    .markdown-cell code {
+        background-color: rgba(65, 184, 131, 0.1) !important;
+        color: #3490DC !important;
+    }
+
+    .editor-input p,
+    .editor-paragraph,
+    .markdown-cell p {
+        color: #d1d5db !important;
+    }
+}
+
+/* Override the tailwind base styles for editor content specifically */
+.editor-inner [contenteditable="true"] h1,
+.editor-inner [contenteditable="true"] h2,
+.editor-inner [contenteditable="true"] h3,
+.editor-inner [contenteditable="true"] h4,
+.editor-inner [contenteditable="true"] h5,
+.editor-inner [contenteditable="true"] h6,
+.editor-inner [contenteditable="true"] p,
+.editor-inner [contenteditable="true"] ul,
+.editor-inner [contenteditable="true"] ol,
+.editor-inner [contenteditable="true"] li,
+.editor-inner [contenteditable="true"] blockquote,
+.editor-inner [contenteditable="true"] pre,
+.editor-inner [contenteditable="true"] code {
+    all: revert;
+}
+
+.editor-inner .editor-input.markdown-cell {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    -webkit-user-select: text !important;
+    user-select: text !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+}
+
+/* Ensure specific element styles take precedence */
+.editor-heading-h1,
+.editor-heading-h2,
+.editor-heading-h3,
+.editor-heading-h4,
+.editor-heading-h5,
+.editor-heading-h6,
+.editor-paragraph,
+.editor-text-bold,
+.editor-text-italic,
+.editor-text-code,
+.editor-list-ol,
+.editor-list-ul,
+.editor-listitem {
+    all: revert;
+}
+
+/* Fix for cursor visibility in gradient text elements */
+[contenteditable]:focus-visible {
+    outline: none;
+    caret-color: #41B883;
+}
+
+.editor-heading-h1 [data-lexical-text="true"],
+.editor-heading-h3 [data-lexical-text="true"],
+.editor-heading-h4 [data-lexical-text="true"] {
+    caret-color: #41B883 !important;
+}
+
+/* Fix cursor display in gradient text headings (h1, h3, h4) */
+.editor-heading-h1 span[data-lexical-text],
+.editor-heading-h3 span[data-lexical-text],
+.editor-heading-h4 span[data-lexical-text] {
+    position: relative !important;
+}
+
+/* Alternative approach - force cursor color in contenteditable elements */
+.editor-inner [contenteditable="true"] {
+    caret-color: #41B883 !important;
+}
+
+/* Force cursor to be visible in all transparent text elements */
+[style*="color: transparent"],
+[style*="color:transparent"] {
+    caret-color: #41B883 !important;
+}
+
+/* 为不同元素类型设置特定的光标颜色 */
+.editor-heading-h1 {
+    caret-color: #41B883 !important; /* 一级标题光标使用绿色 */
+}
+
+.editor-heading-h2 {
+    caret-color: #ffffff !important; /* 二级标题光标使用白色 */
+}
+
+.editor-heading-h3 {
+    caret-color: #3490DC !important; /* 三级标题光标使用蓝色 */
+}
+
+.editor-heading-h4 {
+    caret-color: #6574CD !important; /* 四级标题光标使用紫色 */
+}
+
+.editor-paragraph {
+    caret-color: #202124 !important; /* 段落光标使用黑色 */
+}
+
+.editor-list-ul, .editor-list-ol, .editor-listitem {
+    caret-color: #41B883 !important; /* 列表光标使用绿色 */
+}
+
+.editor-text-bold {
+    caret-color: #41B883 !important; /* 粗体文本光标使用绿色 */
+}
+
+.editor-text-italic {
+    caret-color: #3490DC !important; /* 斜体文本光标使用蓝色 */
+}
+
+.editor-text-code {
+    caret-color: #FFA07A !important; /* 代码文本光标使用浅橙色 */
+}
+
+/* 移除全局光标颜色设置，允许特定元素设置生效 */
+.editor-inner [contenteditable="true"] {
+    caret-color: auto !important; 
+}
+
+/* 确保渐变文本中的span元素继承渐变效果 */
+.editor-heading-h1 span[data-lexical-text],
+.editor-heading-h3 span[data-lexical-text] {
+    background: inherit !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-shadow: inherit !important;
+}
+
+/* 保持特定元素光标颜色不变 */
+.editor-heading-h1 {
+    caret-color: #41B883 !important; /* 一级标题光标使用绿色 */
+}
+
+.editor-heading-h3 {
+    caret-color: #3490DC !important; /* 三级标题光标使用蓝色 */
+}
+
+/* Equation Editor Overrides */
+.editor-equation {
+    vertical-align: baseline !important;
+}
+
+/* Ensure equation editor displays inline properly */
+span.editor-equation {
+    display: inline-block !important;
+    vertical-align: baseline !important;
+}
+
+/* Fix for equation editor input alignment */
+.EquationEditor_inputBackground {
+    vertical-align: baseline !important;
+}
+
+.EquationEditor_inlineEditor {
+    vertical-align: baseline !important;
+}
+
+/* Ensure dollar signs are visible */
+.EquationEditor_dollarSign {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Note: TitlePlugin styles have been moved to plugins/TitlePlugin.css */

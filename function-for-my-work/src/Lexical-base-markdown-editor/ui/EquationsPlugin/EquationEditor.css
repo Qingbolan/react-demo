@@ -1,0 +1,142 @@
+/* Inline equation editor styles - Apple Design */
+.EquationEditor_inlineEditor {
+  padding: 2px 4px;
+  margin: 0;
+  border: none;
+  outline: none;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: transparent;
+  resize: none;
+  font-family: -apple-system-ui-serif, ui-serif, 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 1em;
+  line-height: 1.4;
+  min-width: 40px;
+  vertical-align: baseline;
+}
+
+/* Block equation editor styles - Apple Design */
+.EquationEditor_blockEditor {
+  padding: 8px 12px;
+  margin: 0;
+  border: none;
+  outline: none;
+  color: rgba(0, 0, 0, 0.85);
+  background-color: transparent;
+  resize: none;
+  width: 100%;
+  min-height: 50px;
+  font-family: -apple-system-ui-serif, ui-serif, 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Fira Mono', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 1.1em;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Editor background container with glass effect */
+.EquationEditor_inputBackground {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 122, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
+  padding: 2px 4px;
+  gap: 2px;
+  vertical-align: middle;
+}
+
+/* Block editor background */
+div.EquationEditor_inputBackground {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin: 8px 0;
+}
+
+/* Dollar sign styles with SF Symbols feel */
+.EquationEditor_dollarSign {
+  color: rgba(0, 122, 255, 0.7);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  -webkit-user-select: none;
+  user-select: none;
+  flex-shrink: 0;
+  line-height: 1.4;
+  vertical-align: baseline;
+}
+
+/* Block equation dollar signs */
+div.EquationEditor_inputBackground .EquationEditor_dollarSign {
+  font-size: 1.1em;
+  margin: 0 4px;
+}
+
+/* Smooth entrance animation */
+@keyframes editorFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.EquationEditor_inputBackground {
+  animation: editorFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Remove focus ring from container, only show on input */
+.EquationEditor_inputBackground:focus-within {
+  border-color: rgba(0, 122, 255, 0.5);
+  box-shadow: 
+    0 0 0 3px rgba(0, 122, 255, 0.12),
+    0 2px 8px rgba(0, 122, 255, 0.2);
+}
+
+/* Dark mode support with Apple's dark theme */
+@media (prefers-color-scheme: dark) {
+  .EquationEditor_inlineEditor,
+  .EquationEditor_blockEditor {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  
+  .EquationEditor_dollarSign {
+    color: rgba(64, 156, 255, 0.8);
+  }
+  
+  .EquationEditor_inputBackground {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: rgba(64, 156, 255, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .EquationEditor_inputBackground:focus-within {
+    border-color: rgba(64, 156, 255, 0.6);
+    box-shadow: 
+      0 0 0 3px rgba(64, 156, 255, 0.16),
+      0 2px 8px rgba(64, 156, 255, 0.25);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .EquationEditor_inputBackground {
+    border-width: 2px;
+  }
+}
+
+/* Ensure proper text alignment */
+.EquationEditor_inlineEditor,
+.EquationEditor_dollarSign {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
