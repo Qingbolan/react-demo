@@ -1,42 +1,132 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* 引入 TailwindCSS 基础样式 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.prose.max-w-none.p-6.text-lg.leading-relaxed.markdown-cell {
+    padding: 0;
+}
+
+* {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.4;
+    font-size: 12px;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+p {
+    color: black;
+}
+
+.markdown-cell {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #202124;
+    line-height: 1.4;
+}
+
+/* 悬停状态 */
+.markdown-cell #untitled-cell:hover {
+    color: #35495E !important;
+}
+
+/* 确保内部元素也遵循这些样式 */
+.markdown-cell * {
+    color: inherit !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* 各级标题样式 */
+.markdown-cell h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    line-height: 1.6;
+}
+
+.markdown-cell h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD);
+    border-radius: 5px;
+    padding: 0.2rem 0.5rem;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+}
+
+/* 代码块背景 */
+.markdown-cell pre {
+    background-color: rgba(65, 184, 131, 0.05);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    overflow-x: auto;
+    line-height: 1.6;
+    border: 1px solid rgba(65, 184, 131, 0.1);
+}
+
+/* 表格样式 */
+.markdown-cell table {
+    width: auto;
+    min-width: 50%;
+    max-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1rem 0 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 1px rgba(65, 184, 131, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    border: 1px solid rgba(65, 184, 131, 0.08);
+}
+
+.markdown-cell th,
+.markdown-cell td {
+    padding: 0.5rem;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid rgba(65, 184, 131, 0.06);
+}
+
+.markdown-cell th {
+    background-color: #41B883;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.markdown-cell tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.markdown-cell tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+.markdown-cell tbody tr:hover {
+    background-color: rgba(65, 184, 131, 0.04);
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+    .markdown-cell {
+        color: #d1d5db;
+    }
+
+    .markdown-cell h1 {
+        background-image: linear-gradient(to right, #41B883, #3490DC, #6574CD);
+    }
+
+    .markdown-cell pre {
+        background-color: rgba(65, 184, 131, 0.1);
+        border-color: rgba(65, 184, 131, 0.2);
+    }
+}

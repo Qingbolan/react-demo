@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 const Divider = ({
-    isResizing,
     setIsResizing,
     orientation = 'vertical', 
     dragEnabled = true,
@@ -26,7 +25,14 @@ const Divider = ({
     };
 
     const cursorStyle = orientation === 'vertical' ? 'cursor-col-resize' : 'cursor-row-resize';
-    const dividerClasses = `group w-2 relative ${orientation === 'vertical' ? 'h-full' : 'w-full h-2'} ${dragEnabled ? cursorStyle : ''} -mr-1 z-30 grid place-items-center ${className}`;
+    const dividerClasses = [
+        'group',
+        'relative',
+        orientation === 'vertical' ? 'self-stretch w-2 -mr-1' : 'w-full h-2',
+        dragEnabled ? cursorStyle : '',
+        'z-30 grid place-items-center',
+        className
+    ].filter(Boolean).join(' ');
     const lineColor = isHovering ? accentColor : '#d1d5db'; 
     const handleBorderColor = isHovering ? accentColor : '#d1d5db'; 
     const handleBgColor = isHovering ? accentColor : '#f9fafb'; 
@@ -37,13 +43,18 @@ const Divider = ({
             onMouseDown={dragEnabled ? handleMouseDown : undefined}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={style}
+            style={{
+                ...style,
+                maxWidth: '100vw',
+                maxHeight: '100vh',
+            }}
         >
             <div
-                className={`absolute ${orientation === 'vertical' ? 'top-0 bottom-0 right-1' : 'left-0 right-0 bottom-1'}`}
+                className="absolute top-0 left-0 right-0 bottom-0"
                 style={{
-                    width: orientation === 'vertical' ? (isHovering ? '1.5px' : '0.5px') : 'auto',
-                    height: orientation === 'horizontal' ? (isHovering ? '1.5px' : '0.5px') : 'auto',
+                    margin: 'auto',
+                    width: orientation === 'vertical' ? '1.5px' : '100%',
+                    height: orientation === 'horizontal' ? '1.5px' : '100%',
                     backgroundColor: lineColor,
                     transform: orientation === 'vertical'
                         ? (isHovering ? 'translateX(0.5px)' : 'none')
@@ -82,7 +93,6 @@ const ResizablePanel = ({
     const containerRef = useRef(null);
     const [size, setSize] = useState(defaultSize);
     const [isResizing, setIsResizing] = useState(false);
-    const [containerDimension, setContainerDimension] = useState({ width: 0, height: 0 });
 
     // 控制哪一侧面板可调整大小
     const isFirstPanelResizable = ['left', 'top'].includes(resizePanel);
@@ -93,8 +103,7 @@ const ResizablePanel = ({
 
         const updateContainerDimension = () => {
             if (containerRef.current) {
-                const { width, height } = containerRef.current.getBoundingClientRect();
-                setContainerDimension({ width, height });
+                containerRef.current.getBoundingClientRect();
             }
         };
 
@@ -109,48 +118,38 @@ const ResizablePanel = ({
         };
     }, []);
 
-    // 根据容器尺寸设置最大尺寸
-    const effectiveMaxSize = React.useMemo(() => {
-        if (maxSize !== undefined) return maxSize;
-        return orientation === 'vertical' ? containerDimension.width - 8 : containerDimension.height - 8;
-    }, [maxSize, orientation, containerDimension]);
-
-    const isMaxSize = size >= effectiveMaxSize;
-
     // 处理拖动开始
     useEffect(() => {
         if (!isResizing || !dragEnabled) return;
 
         const handleMouseMove = (e) => {
-            if (!containerRef.current) return;
-
-            // 获取容器的位置
-            const containerRect = containerRef.current.getBoundingClientRect();
+            const rect = containerRef.current?.getBoundingClientRect();
+            if (!rect) return;
 
             let newSize;
-            let mousePosition;
 
             if (orientation === 'vertical') {
                 // 垂直分割线，调整宽度
-                mousePosition = e.clientX;
-                if (isFirstPanelResizable) {
-                    // 调整左侧面板
-                    newSize = mousePosition - containerRect.left;
-                } else {
-                    // 调整右侧面板
-                    newSize = containerRect.right - mousePosition;
-                }
+                const mouseX = e.clientX;
+                newSize = isFirstPanelResizable
+                    ? mouseX - rect.left
+                    : rect.right - mouseX;
             } else {
                 // 水平分割线，调整高度
-                mousePosition = e.clientY;
-                if (isFirstPanelResizable) {
-                    newSize = mousePosition - containerRect.top;
-                } else {
-                    newSize = containerRect.bottom - mousePosition;
-                }
+                const mouseY = e.clientY;
+                newSize = isFirstPanelResizable
+                    ? mouseY - rect.top
+                    : rect.bottom - mouseY;
             }
 
+            // 计算当前容器可用最大尺寸
+            const dividerSpace = 8; // 分割条和手柄的近似宽度
+            const currentMaxSize = orientation === 'vertical'
+                ? rect.width - dividerSpace
+                : rect.height - dividerSpace;
+                
             // 限制在最小和最大尺寸之间
+            const effectiveMaxSize = maxSize !== undefined ? maxSize : currentMaxSize;
             const boundedSize = Math.max(minSize, Math.min(effectiveMaxSize, newSize));
 
             setSize(boundedSize);
@@ -162,7 +161,6 @@ const ResizablePanel = ({
 
         const handleMouseUp = () => {
             setIsResizing(false);
-            // 调用拖拽完成回调函数
             if (onResizeComplete) {
                 onResizeComplete(size);
             }
@@ -175,14 +173,26 @@ const ResizablePanel = ({
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-    }, [isResizing, dragEnabled, orientation, isFirstPanelResizable, minSize, effectiveMaxSize, onResize, onResizeComplete, size]);
+    }, [isResizing, dragEnabled, orientation, isFirstPanelResizable, minSize, maxSize, onResize, onResizeComplete, size]);
+
+    const isMaxSize = (() => {
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (!rect) return false;
+        
+        const dividerSpace = 8;
+        const currentMaxSize = orientation === 'vertical'
+            ? rect.width - dividerSpace
+            : rect.height - dividerSpace;
+            
+        const effectiveMaxSize = maxSize !== undefined ? maxSize : currentMaxSize;
+        return size >= effectiveMaxSize;
+    })();
 
     const containerStyles = {
         display: 'flex',
         flexDirection: orientation === 'vertical' ? 'row' : 'column',
         position: 'relative',
         width: '100%',
-        height: '100vh',
         ...style
     };
 
@@ -244,14 +254,15 @@ const ResizablePanel = ({
     return (
         <div
             ref={containerRef}
-            className={`${className} w-full`}
+            className={`${className} w-full h-full`}
             style={containerStyles}
         >
-            <div style={getFirstPanelStyle()}>
+            <div style={getFirstPanelStyle()}
+            >
                 {childrenArray[0]}
             </div>
 
-            {showDivider && (
+            {childrenArray[1] && showDivider && (
                 <Divider
                     isResizing={isResizing}
                     setIsResizing={setIsResizing}
@@ -261,7 +272,7 @@ const ResizablePanel = ({
                 />
             )}
 
-            {isMaxSize ? null : <div style={getSecondPanelStyle()}>
+            {!isMaxSize && <div style={getSecondPanelStyle()}>
                 {childrenArray[1]}
             </div>}
         </div>

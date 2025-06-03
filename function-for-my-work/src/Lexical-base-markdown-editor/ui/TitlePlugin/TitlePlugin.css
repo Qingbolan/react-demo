@@ -1,0 +1,174 @@
+/**
+ * @TitlePlugin - Styles for Title Plugin
+ * Handles H1 title placeholder functionality in Lexical editor
+ */
+
+/* ==========================================================================
+   H1 Title Placeholder Styles - Core
+   ========================================================================== */
+
+/* Main placeholder styles for empty H1 elements */
+.editor-input h1:empty::before,
+.editor-input h1.title-placeholder:empty::before,
+.editor-heading-h1:empty::before,
+.editor-heading-h1.title-placeholder:empty::before,
+.editor-inner h1:empty::before,
+.editor-inner h1.title-placeholder:empty::before,
+.editor-inner .editor-heading-h1:empty::before,
+.editor-inner .editor-heading-h1.title-placeholder:empty::before,
+[contenteditable] h1:empty::before,
+[contenteditable] h1.title-placeholder:empty::before,
+.markdown-cell h1:empty::before,
+.markdown-cell h1.title-placeholder:empty::before {
+    content: attr(data-placeholder);
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    opacity: 0.4;
+    pointer-events: none;
+    position: relative;
+    display: block;
+    line-height: 1.6 !important;
+    margin: 1rem 0 !important;
+    padding: 3px 2px;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   Fallback Placeholder Content
+   ========================================================================== */
+
+/* Fallback for elements without data-placeholder attribute */
+.editor-input h1:empty:not([data-placeholder])::before,
+.editor-input h1.title-placeholder:empty:not([data-placeholder])::before,
+.editor-inner h1:empty:not([data-placeholder])::before,
+.editor-inner h1.title-placeholder:empty:not([data-placeholder])::before,
+[contenteditable] h1:empty:not([data-placeholder])::before,
+[contenteditable] h1.title-placeholder:empty:not([data-placeholder])::before,
+.markdown-cell h1:empty:not([data-placeholder])::before,
+.markdown-cell h1.title-placeholder:empty:not([data-placeholder])::before {
+    content: 'Enter your title...';
+}
+
+/* ==========================================================================
+   Dynamic Placeholder Control
+   ========================================================================== */
+
+/* Special class for placeholder when H1 has no text content */
+h1.show-placeholder::before,
+h1.title-placeholder.show-placeholder::before {
+    content: attr(data-placeholder) !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(to right, #41B883, #3490DC, #6574CD) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    opacity: 0.4;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    line-height: 1.6 !important;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: inherit;
+    z-index: 1;
+    display: block;
+}
+
+/* Hide placeholder when H1 has content */
+h1:not(.show-placeholder)::before {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Title Plugin Helper Classes
+   ========================================================================== */
+
+/* Base title placeholder class */
+.title-placeholder {
+    position: relative;
+}
+
+/* Ensure proper positioning for placeholder overlay */
+.title-placeholder.show-placeholder {
+    position: relative;
+}
+
+/* ==========================================================================
+   Dark Mode Support
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    .editor-input h1:empty::before,
+    .editor-input h1.title-placeholder:empty::before,
+    .editor-heading-h1:empty::before,
+    .editor-heading-h1.title-placeholder:empty::before,
+    .editor-inner h1:empty::before,
+    .editor-inner h1.title-placeholder:empty::before,
+    .editor-inner .editor-heading-h1:empty::before,
+    .editor-inner .editor-heading-h1.title-placeholder:empty::before,
+    [contenteditable] h1:empty::before,
+    [contenteditable] h1.title-placeholder:empty::before,
+    .markdown-cell h1:empty::before,
+    .markdown-cell h1.title-placeholder:empty::before,
+    h1.show-placeholder::before,
+    h1.title-placeholder.show-placeholder::before {
+        opacity: 0.5;
+    }
+}
+
+/* ==========================================================================
+   Browser Compatibility & Fixes
+   ========================================================================== */
+
+/* Safari specific fixes */
+@supports (-webkit-appearance: none) {
+    .title-placeholder::before {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}
+
+/* Firefox specific fixes */
+@-moz-document url-prefix() {
+    .title-placeholder::before {
+        background-attachment: fixed;
+    }
+}
+
+/* Edge/IE specific fixes */
+@supports (-ms-ime-align: auto) {
+    .title-placeholder::before {
+        background-image: none;
+        color: rgba(65, 184, 131, 0.4) !important;
+    }
+}
+
+/* ==========================================================================
+   Debugging Helpers (Development Only)
+   ========================================================================== */
+
+/* Uncomment for debugging placeholder issues
+.title-placeholder {
+    border: 1px dashed rgba(255, 0, 0, 0.3) !important;
+}
+
+.title-placeholder.show-placeholder {
+    border-color: rgba(0, 255, 0, 0.5) !important;
+}
+
+.title-placeholder::before {
+    border: 1px solid rgba(0, 0, 255, 0.3) !important;
+}
+*/ 
